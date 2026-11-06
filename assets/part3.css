@@ -1,0 +1,100 @@
+:root {
+  --p3-ink: #0f172a;
+}
+
+.p3-root {
+  color: var(--p3-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.p3-spin {
+  animation: p3-spin 1.1s linear infinite;
+}
+
+.p3-pulse-dot {
+  animation: p3-pulse-dot 1.6s ease-in-out infinite;
+}
+
+.p3-shimmer {
+  background-image: linear-gradient(100deg, rgba(226, 232, 240, 0.55) 20%, rgba(248, 250, 252, 0.95) 40%, rgba(226, 232, 240, 0.55) 60%);
+  background-size: 220% 100%;
+  animation: p3-shimmer 1.5s ease-in-out infinite;
+}
+
+.p3-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #6366f1, #06b6d4, #10b981, #6366f1);
+  background-size: 220% 100%;
+  animation: p3-progress 2.2s linear infinite;
+}
+
+.p3-fade-up {
+  animation: p3-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.p3-toast {
+  animation: p3-toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.p3-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.p3-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.p3-advice-shine {
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(99, 102, 241, 0.55), transparent 55%),
+    radial-gradient(100% 100% at 100% 0%, rgba(14, 165, 233, 0.4), transparent 50%),
+    radial-gradient(100% 100% at 50% 120%, rgba(16, 185, 129, 0.35), transparent 55%);
+}
+
+@keyframes p3-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes p3-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.78); }
+}
+
+@keyframes p3-shimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+@keyframes p3-progress {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 220% 50%; }
+}
+
+@keyframes p3-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes p3-toast-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p3-spin,
+  .p3-pulse-dot,
+  .p3-shimmer,
+  .p3-progress::after,
+  .p3-fade-up,
+  .p3-toast {
+    animation: none !important;
+  }
+}

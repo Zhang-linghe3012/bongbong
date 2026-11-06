@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Phần 3 - AI đánh giá và nhận xét website theo Ba-rem 10 nhóm tiêu chí." />
+  <title>Phần 3 · AI đánh giá &amp; nhận xét website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./assets/part3.css" />
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -left-32 top-0 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl"></div>
+    <div class="absolute right-0 top-24 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-emerald-200/30 blur-3xl"></div>
+  </div>
+
+  <header class="border-b border-slate-200/70 bg-white/70 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-sky-500 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/25">BB</span>
+        <div>
+          <p class="text-sm font-bold tracking-tight text-slate-900">BongBong · Kiểm định doanh nghiệp</p>
+          <p class="text-[11px] text-slate-500">Module độc lập cho hệ thống đánh giá website</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold">
+        <span class="rounded-full bg-slate-100 px-3 py-1.5 text-slate-500">Phần 1 · Quét dữ liệu</span>
+        <span class="rounded-full bg-slate-100 px-3 py-1.5 text-slate-500">Phần 2 · Chấm điểm</span>
+        <span class="rounded-full bg-slate-900 px-3 py-1.5 text-white">Phần 3 · AI nhận xét</span>
+        <span class="rounded-full bg-slate-100 px-3 py-1.5 text-slate-500">Phần 4 · Xuất báo cáo</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <section class="mb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-indigo-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-indigo-700 ring-1 ring-indigo-200">Module Part 3</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Tailwind CSS</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Vanilla JavaScript</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Strict JSON</span>
+      </div>
+      <h1 class="mt-4 max-w-3xl text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">AI đánh giá &amp; nhận xét website theo Ba-rem chuyên sâu</h1>
+      <p class="mt-3 max-w-3xl text-sm leading-7 text-slate-600">Module nhận URL cùng dữ liệu quét client-side từ Phần 1, đối chiếu 10 nhóm tiêu chí và trả về đúng cấu trúc: 03 điểm sáng, 03 điểm cần cải thiện kèm mức độ &amp; giải pháp, các hạng mục thiếu dữ liệu và lời khuyên chiến lược. Kết quả được render trực tiếp và sẵn sàng bàn giao sang Phần 4.</p>
+    </section>
+
+    <section class="mb-8 grid gap-5 lg:grid-cols-[1.05fr_.95fr]">
+      <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Integration harness</p>
+            <h2 class="mt-1 text-lg font-bold text-slate-900">Dữ liệu đầu vào</h2>
+            <p class="mt-1 text-xs leading-5 text-slate-500">Dán dữ liệu quét thật từ Phần 1 hoặc dùng dữ liệu mẫu để kiểm thử giao diện.</p>
+          </div>
+          <span class="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700 ring-1 ring-emerald-200">Live</span>
+        </div>
+
+        <form id="analyzeForm" class="mt-5 space-y-4" novalidate>
+          <div>
+            <label for="siteUrl" class="mb-1.5 block text-xs font-semibold text-slate-700">URL website doanh nghiệp</label>
+            <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 focus-within:border-indigo-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-indigo-100">
+              <svg class="h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/></svg>
+              <input id="siteUrl" name="url" type="url" placeholder="https://doanhnghiep.vn" class="w-full bg-transparent py-2.5 text-sm text-slate-800 outline-none placeholder:text-slate-400" />
+            </div>
+          </div>
+
+          <div>
+            <div class="mb-1.5 flex items-center justify-between gap-2">
+              <label for="scanData" class="text-xs font-semibold text-slate-700">Dữ liệu quét client-side (JSON)</label>
+              <button id="loadSample" type="button" class="text-[11px] font-semibold text-indigo-600 hover:text-indigo-700">Nạp dữ liệu mẫu</button>
+            </div>
+            <textarea id="scanData" name="scanData" rows="9" spellcheck="false" class="p3-scroll w-full rounded-xl border border-slate-200 bg-slate-950 p-3 font-mono text-[11px] leading-5 text-emerald-200 outline-none ring-offset-2 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="analyzeBtn" type="submit" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white shadow-lg shadow-slate-900/10 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3Z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>
+              <span data-label>Phân tích bằng AI</span>
+            </button>
+            <button id="demoBtn" type="button" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-600 transition hover:bg-slate-50">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1 1 1.7V16h5v-.4c0-.7.4-1.3 1-1.7A6 6 0 0 0 12 3Z"/></svg>
+              Xem giao diện với dữ liệu mẫu
+            </button>
+          </div>
+          <p id="harnessHint" class="min-h-[18px] text-[11px] font-medium text-slate-500" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">AI endpoint</p>
+            <h2 class="mt-1 text-lg font-bold text-slate-900">Cấu hình API</h2>
+            <p class="mt-1 text-xs leading-5 text-slate-500">Hỗ trợ mọi endpoint OpenAI-compatible hoặc backend proxy của nhóm.</p>
+          </div>
+          <span class="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold text-slate-500 ring-1 ring-slate-200">Optional</span>
+        </div>
+
+        <form id="configForm" class="mt-5 space-y-3" novalidate>
+          <div>
+            <label for="endpoint" class="mb-1.5 block text-xs font-semibold text-slate-700">Endpoint</label>
+            <input id="endpoint" type="text" placeholder="https://api.openai.com/v1/chat/completions" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-[11px] text-slate-800 outline-none focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100" />
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label for="model" class="mb-1.5 block text-xs font-semibold text-slate-700">Model</label>
+              <input id="model" type="text" placeholder="gpt-4o-mini" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-[11px] text-slate-800 outline-none focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100" />
+            </div>
+            <div>
+              <label for="apiKey" class="mb-1.5 block text-xs font-semibold text-slate-700">API key</label>
+              <div class="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50 px-2 focus-within:border-indigo-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-indigo-100">
+                <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" class="w-full bg-transparent py-2.5 font-mono text-[11px] text-slate-800 outline-none" />
+                <button id="toggleKey" type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600" aria-label="Hiện hoặc ẩn API key">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-indigo-700">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Lưu cấu hình
+            </button>
+            <button id="clearConfig" type="button" class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-500 transition hover:bg-slate-50">Xoá</button>
+          </div>
+        </form>
+
+        <div class="mt-5 rounded-2xl bg-amber-50 p-3.5 text-[11px] leading-5 text-amber-800 ring-1 ring-amber-200">
+          <p class="font-bold">Lưu ý bảo mật</p>
+          <p class="mt-1">Không nên nhúng API key trực tiếp vào trang public. Khi tích hợp chính thức, hãy trỏ <span class="font-mono">endpoint</span> về backend proxy của nhóm để giữ key ở phía máy chủ.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="part3" aria-label="Kết quả AI đánh giá website"></section>
+  </main>
+
+  <footer class="border-t border-slate-200/70 bg-white/60 py-6 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 text-[11px] text-slate-400 sm:flex-row sm:px-6 lg:px-8">
+      <p>BongBong · Module Phần 3 · AI đánh giá &amp; nhận xét website</p>
+      <p>Ba-rem 10 nhóm tiêu chí · Strict JSON · v1.0.0</p>
+    </div>
+  </footer>
+
+  <script src="./assets/part3.js"></script>
+  <script src="./assets/demo-data.js"></script>
+  <script>
+    (function () {
+      const ENDPOINT_KEY = 'part3.endpoint';
+      const MODEL_KEY = 'part3.model';
+      const KEY_KEY = 'part3.apiKey';
+
+      const form = document.getElementById('analyzeForm');
+      const urlInput = document.getElementById('siteUrl');
+      const scanInput = document.getElementById('scanData');
+      const analyzeBtn = document.getElementById('analyzeBtn');
+      const analyzeLabel = analyzeBtn.querySelector('[data-label]');
+      const demoBtn = document.getElementById('demoBtn');
+      const sampleBtn = document.getElementById('loadSample');
+      const hint = document.getElementById('harnessHint');
+      const configForm = document.getElementById('configForm');
+      const endpointInput = document.getElementById('endpoint');
+      const modelInput = document.getElementById('model');
+      const keyInput = document.getElementById('apiKey');
+      const toggleKey = document.getElementById('toggleKey');
+      const clearConfig = document.getElementById('clearConfig');
+      const mountNode = document.getElementById('part3');
+
+      function readStore(storage, key, fallback) {
+        try { return storage.getItem(key) || fallback; } catch (error) { return fallback; }
+      }
+
+      function writeStore(storage, key, value) {
+        try {
+          if (value) storage.setItem(key, value);
+          else storage.removeItem(key);
+        } catch (error) { /* noop */ }
+      }
+
+      endpointInput.value = readStore(localStorage, ENDPOINT_KEY, '');
+      modelInput.value = readStore(localStorage, MODEL_KEY, 'gpt-4o-mini');
+      keyInput.value = readStore(sessionStorage, KEY_KEY, '');
+
+      const part3 = Part3Review.create('#part3', {
+        endpoint: endpointInput.value.trim(),
+        model: modelInput.value.trim() || 'gpt-4o-mini',
+        apiKey: keyInput.value.trim()
+      });
+
+      function setHint(message, tone) {
+        const tones = {
+          info: 'text-slate-500',
+          ok: 'text-emerald-600',
+          warn: 'text-amber-600',
+          error: 'text-rose-600'
+        };
+        hint.className = 'min-h-[18px] text-[11px] font-medium ' + (tones[tone] || tones.info);
+        hint.textContent = message;
+      }
+
+      function setBusy(busy) {
+        analyzeBtn.disabled = busy;
+        analyzeLabel.textContent = busy ? 'AI đang phân tích…' : 'Phân tích bằng AI';
+      }
+
+      function syncConfig() {
+        const config = {
+          endpoint: endpointInput.value.trim(),
+          model: modelInput.value.trim() || 'gpt-4o-mini',
+          apiKey: keyInput.value.trim()
+        };
+        part3.configure(config);
+        writeStore(localStorage, ENDPOINT_KEY, config.endpoint);
+        writeStore(localStorage, MODEL_KEY, config.model);
+        writeStore(sessionStorage, KEY_KEY, config.apiKey);
+        return config;
+      }
+
+      function loadSample() {
+        urlInput.value = window.PART3_DEMO_SCAN.url;
+        scanInput.value = JSON.stringify(window.PART3_DEMO_SCAN, null, 2);
+        setHint('Đã nạp dữ liệu quét mẫu. Có thể chỉnh sửa trước khi phân tích.', 'info');
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const config = syncConfig();
+
+        let scanData;
+        try {
+          scanData = JSON.parse(scanInput.value);
+        } catch (error) {
+          setHint('Dữ liệu quét không phải JSON hợp lệ. Hãy kiểm tra lại định dạng.', 'error');
+          return;
+        }
+
+        if (!config.endpoint && !config.fetcher) {
+          setHint('Chưa cấu hình endpoint AI. Nhập endpoint ở cột bên phải hoặc bấm "Xem giao diện với dữ liệu mẫu".', 'warn');
+          return;
+        }
+
+        setBusy(true);
+        setHint('Đang gửi dữ liệu tới AI. Kết quả sẽ được render ngay khi hoàn tất…', 'info');
+        part3.analyze({ url: urlInput.value, scanData: scanData })
+          .catch(function () { /* lỗi đã được render trong module */ })
+          .finally(function () { setBusy(false); });
+      });
+
+      demoBtn.addEventListener('click', function () {
+        if (!scanInput.value.trim()) loadSample();
+        part3.renderResult(window.PART3_DEMO_RESULT, { demo: true });
+        setHint('Đang hiển thị dữ liệu minh hoạ để kiểm tra giao diện. Không phải kết quả phân tích website thật.', 'warn');
+        mountNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      sampleBtn.addEventListener('click', loadSample);
+
+      configForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        syncConfig();
+        setHint('Đã lưu cấu hình API cho phiên làm việc này.', 'ok');
+      });
+
+      toggleKey.addEventListener('click', function () {
+        keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
+      });
+
+      clearConfig.addEventListener('click', function () {
+        endpointInput.value = '';
+        modelInput.value = 'gpt-4o-mini';
+        keyInput.value = '';
+        writeStore(localStorage, ENDPOINT_KEY, '');
+        writeStore(localStorage, MODEL_KEY, '');
+        writeStore(sessionStorage, KEY_KEY, '');
+        syncConfig();
+        setHint('Đã xoá cấu hình API.', 'info');
+      });
+
+      mountNode.addEventListener('part3:complete', function (event) {
+        const payload = event.detail;
+        if (payload && payload.result && payload.result.meta && payload.result.meta.demo) {
+          setHint('Đã render dữ liệu minh hoạ. Kết quả này dùng để kiểm tra giao diện, không dùng để báo cáo khách hàng.', 'warn');
+          return;
+        }
+        setHint('AI đã hoàn tất đánh giá. Dữ liệu sẵn sàng để chuyển sang Phần 4.', 'ok');
+      });
+
+      mountNode.addEventListener('part3:error', function (event) {
+        setHint('Phân tích thất bại: ' + (event.detail && event.detail.message ? event.detail.message : 'không rõ nguyên nhân.'), 'error');
+      });
+
+      loadSample();
+    })();
+  </script>
+</body>
+</html>
