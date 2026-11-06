@@ -957,6 +957,7 @@
         result.meta.demo = false;
         result.meta.model = config.model || '';
         this.result = result;
+        global.currentAuditResult = result;
         this.renderSuccess(result);
         this.emit('part3:complete', this.getReportPayload());
         return result;
@@ -990,6 +991,7 @@
       if (options && options.demo) result.meta.demo = true;
       if (options && options.model) result.meta.model = options.model;
       this.result = result;
+      global.currentAuditResult = result;
       this.renderSuccess(result);
       this.emit('part3:complete', this.getReportPayload());
       return result;

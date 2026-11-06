@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Phần 4 - Xuất báo cáo đánh giá website tự động từ kết quả phân tích của Phần 3." />
+  <title>Phần 4 · Xuất báo cáo đánh giá website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./assets/part4.css" />
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -left-32 top-0 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl"></div>
+    <div class="absolute right-0 top-24 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-emerald-200/30 blur-3xl"></div>
+  </div>
+
+  <header class="border-b border-slate-200/70 bg-white/70 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="flex items-center gap-3">
+        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-sky-500 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/25">BB</span>
+        <div>
+          <p class="text-sm font-bold tracking-tight text-slate-900">BongBong · Kiểm định doanh nghiệp</p>
+          <p class="text-[11px] text-slate-500">Module xuất báo cáo tự động</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold">
+        <a href="../" class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1.5 text-slate-500 transition hover:bg-slate-200 hover:text-slate-700">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>
+          Phần 3 · AI nhận xét
+        </a>
+        <span class="rounded-full bg-slate-900 px-3 py-1.5 text-white">Phần 4 · Xuất báo cáo</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <section class="mb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-indigo-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-indigo-700 ring-1 ring-indigo-200">Module Part 4</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Auto sync</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Text / Markdown</span>
+        <span class="rounded-full bg-white px-3 py-1 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">Clipboard &amp; .TXT</span>
+      </div>
+      <h1 class="mt-4 max-w-3xl text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Xuất báo cáo kiểm định chuyên nghiệp, tự động từ Phần 3</h1>
+      <p class="mt-3 max-w-3xl text-sm leading-7 text-slate-600">Kết quả phân tích AI được đồng bộ ngay khi Phần 3 hoàn tất. Chỉ cần bổ sung tên doanh nghiệp, đơn vị đánh giá và ngày lập báo cáo là có thể sao chép hoặc tải xuống bản báo cáo hoàn chỉnh.</p>
+    </section>
+
+    <section class="mb-5 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/80 p-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-start gap-3">
+        <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>
+        </span>
+        <div>
+          <p id="demoStatus" class="text-sm font-semibold text-slate-800">Sẵn sàng đồng bộ từ Phần 3</p>
+          <p class="mt-0.5 text-[11px] leading-5 text-slate-500">Trang demo sẽ gửi một sự kiện <span class="font-mono">part3:complete</span> mẫu để kiểm tra luồng tự động điền báo cáo.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-[11px] font-semibold text-amber-700 ring-1 ring-amber-200">Dữ liệu minh hoạ</span>
+        <button id="simulateBtn" type="button" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3Z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>
+          Mô phỏng dữ liệu Phần 3
+        </button>
+      </div>
+    </section>
+
+    <div id="part4" aria-label="Xuất báo cáo đánh giá website"></div>
+  </main>
+
+  <footer class="border-t border-slate-200/70 bg-white/60 py-6 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 text-[11px] text-slate-400 sm:flex-row sm:px-6 lg:px-8">
+      <p>BongBong · Module Phần 4 · Xuất báo cáo đánh giá website</p>
+      <p>Tự động đồng bộ từ Phần 3 · v1.0.0</p>
+    </div>
+  </footer>
+
+  <script src="./assets/part4.js"></script>
+  <script src="./assets/demo-data.js"></script>
+  <script>
+    (function () {
+      const mountNode = document.getElementById('part4');
+      const simulateBtn = document.getElementById('simulateBtn');
+      const demoStatus = document.getElementById('demoStatus');
+
+      const report = Part4Report.create('#part4', {
+        expertName: 'Đội ngũ Audit BongBong'
+      });
+
+      function simulatePart3() {
+        const payload = JSON.parse(JSON.stringify(window.PART4_DEMO_PAYLOAD));
+        const now = new Date().toISOString();
+        payload.generatedAt = now;
+        payload.result.generatedAt = now;
+        window.currentAuditResult = payload.result;
+
+        mountNode.dispatchEvent(new CustomEvent('part3:complete', {
+          detail: payload,
+          bubbles: true
+        }));
+
+        demoStatus.textContent = 'Đã gửi sự kiện part3:complete · Báo cáo được điền tự động';
+        demoStatus.className = 'text-sm font-semibold text-emerald-700';
+      }
+
+      simulateBtn.addEventListener('click', simulatePart3);
+      document.addEventListener('part4:ready', function () {
+        demoStatus.textContent = 'Đã đồng bộ dữ liệu từ Phần 3 · Báo cáo sẵn sàng xuất';
+        demoStatus.className = 'text-sm font-semibold text-emerald-700';
+      });
+
+      setTimeout(simulatePart3, 700);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+.p4-root {
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.p4-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.p4-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.p4-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.p4-fade-up {
+  animation: p4-fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.p4-pulse {
+  animation: p4-pulse 1.8s ease-in-out infinite;
+}
+
+.p4-toast {
+  animation: p4-toast-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes p4-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes p4-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+@keyframes p4-toast-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p4-fade-up,
+  .p4-pulse,
+  .p4-toast {
+    animation: none !important;
+  }
+}
